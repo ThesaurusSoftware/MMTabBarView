@@ -278,15 +278,13 @@
                                             <menuItem title="LiveChat" id="200">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
-                                            <menuItem title="Mavericks" id="UTD-fN-Qzw">
-                                                <modifierMask key="keyEquivalentModifierMask"/>
-                                            </menuItem>
-                                            <menuItem title="Metal" id="29"/>
+                                            <menuItem title="Mavericks" id="29"/>
+                                            <menuItem title="Metal" id="L5N-w4-UXC"/>
                                             <menuItem title="Safari" id="223">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
                                             <menuItem title="Unified" id="27"/>
-                                            <menuItem title="Yosemite" id="yvn-Yx-DZh">
+                                            <menuItem title="Yosemite" id="nDO-Tv-AuD">
                                                 <modifierMask key="keyEquivalentModifierMask"/>
                                             </menuItem>
                                         </items>

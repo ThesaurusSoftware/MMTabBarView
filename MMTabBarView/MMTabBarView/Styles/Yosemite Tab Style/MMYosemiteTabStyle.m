@@ -212,7 +212,13 @@
 	} else { // Unselected Tab
 		NSRect aRect = NSMakeRect(cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, cellFrame.size.height);
         
-        if ([button shouldDisplayRightDivider])
+ 		// Rollover
+		if ([cell mouseHovered]) {
+			[[NSColor colorWithCalibratedWhite:0.0 alpha:0.03] set];
+			NSRectFillUsingOperation(aRect, NSCompositeSourceAtop);
+		}
+
+       if ([button shouldDisplayRightDivider])
             right = yosemiteDivider;
         if ([button shouldDisplayLeftDivider])
             left = yosemiteDivider;

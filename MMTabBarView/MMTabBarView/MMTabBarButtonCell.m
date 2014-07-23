@@ -699,7 +699,7 @@
 - (CGFloat)leftMargin {
     CGFloat margin = 0.0;
     
-    if ([_style respondsToSelector:@selector(leftButtonMarginForTabBarView:)]) {
+    if ([_style respondsToSelector:@selector(closeButtonLeftMarginForTabBarView:)]) {
         margin = [_style closeButtonLeftMarginForTabBarView:[self tabBarView]];
     } else {
         margin = [self _leftMargin];
@@ -716,7 +716,7 @@
 - (CGFloat)rightMargin {
     CGFloat margin = 0.0;
     
-    if ([_style respondsToSelector:@selector(rightButtonMarginForTabBarView:)]) {
+    if ([_style respondsToSelector:@selector(closeButtonRightMarginForTabBarView:)]) {
         margin = [_style closeButtonRightMarginForTabBarView:[self tabBarView]];
     } else {
         margin = [self _rightMargin];
@@ -740,7 +740,7 @@
 - (CGFloat)topMargin {
     CGFloat margin = 0.0;
     
-    if ([_style respondsToSelector:@selector(topButtonMarginForTabBarView:)]) {
+    if ([_style respondsToSelector:@selector(closeButtonTopMarginForTabBarView:)]) {
         margin = [_style closeButtonTopMarginForTabBarView:[self tabBarView]];
     } else {
         margin = [self _topMargin];
@@ -757,7 +757,7 @@
 - (CGFloat)bottomMargin {
     CGFloat margin = 0.0;
     
-    if ([_style respondsToSelector:@selector(bottomButtonMarginForTabBarView:)]) {
+    if ([_style respondsToSelector:@selector(closeButtonBottomMarginForTabBarView:)]) {
         margin = [_style closeButtonBottomMarginForTabBarView:[self tabBarView]];
     } else {
         margin = [self _bottomMargin];

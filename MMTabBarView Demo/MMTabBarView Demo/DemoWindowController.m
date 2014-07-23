@@ -216,7 +216,7 @@
 	NSRect totalFrame = NSUnionRect(tabBarFrame, tabViewFrame);
 
 	if (newOrientation == MMTabBarHorizontalOrientation) {
-		tabBarFrame.size.height = [tabBar isTabBarHidden] ? 1 : 22;
+		tabBarFrame.size.height = [tabBar isTabBarHidden] ? 1 : [tabBar heightOfTabBarButtons];
 		tabBarFrame.size.width = totalFrame.size.width;
 		tabBarFrame.origin.y = totalFrame.origin.y + totalFrame.size.height - tabBarFrame.size.height;
 		tabViewFrame.origin.x = 13;
@@ -546,10 +546,10 @@
 
 	if ([tabBarView orientation] == MMTabBarHorizontalOrientation) {
 		offset->width = [tabBarView leftMargin];
-		offset->height = 22;
+		offset->height = [tabBarView frame].size.height;
 	} else {
 		offset->width = 0;
-		offset->height = 22 + [tabBarView topMargin];
+		offset->height = [tabBarView frame].size.height + [tabBarView topMargin];
 	}
 
 	if (styleMask) {

@@ -294,6 +294,10 @@ typedef enum MMAttachedButtonsEnumerationOptions : NSUInteger {
 - (CGFloat)topMargin;
 - (CGFloat)bottomMargin;
 
+#pragma mark Cell Padding
+
+- (CGFloat)cellPadding;
+
 #pragma mark Layout Buttons
 
 - (void)layoutButtons;

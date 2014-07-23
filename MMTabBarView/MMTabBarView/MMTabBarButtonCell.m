@@ -696,10 +696,34 @@
 
 #pragma mark > Margins
 
+- (CGFloat)leftMargin {
+    CGFloat margin = 0.0;
+    
+    if ([_style respondsToSelector:@selector(leftButtonMarginForTabBarView:)]) {
+        margin = [_style closeButtonLeftMarginForTabBarView:[self tabBarView]];
+    } else {
+        margin = [self _leftMargin];
+    }
+
+    return margin;
+}
+
 - (CGFloat)_leftMargin {
 
     return MARGIN_X;
 }  // -_leftMargin
+
+- (CGFloat)rightMargin {
+    CGFloat margin = 0.0;
+    
+    if ([_style respondsToSelector:@selector(rightButtonMarginForTabBarView:)]) {
+        margin = [_style closeButtonRightMarginForTabBarView:[self tabBarView]];
+    } else {
+        margin = [self _rightMargin];
+    }
+
+    return margin;
+}
 
 - (CGFloat)_rightMargin {
 
@@ -713,15 +737,49 @@
     return MARGIN_X;
 }  // -_rightMargin
 
+- (CGFloat)topMargin {
+    CGFloat margin = 0.0;
+    
+    if ([_style respondsToSelector:@selector(topButtonMarginForTabBarView:)]) {
+        margin = [_style closeButtonTopMarginForTabBarView:[self tabBarView]];
+    } else {
+        margin = [self _topMargin];
+    }
+
+    return margin;
+}
+
+- (CGFloat)_topMargin {
+
+    return MARGIN_Y;
+}  // -_topMargin
+
+- (CGFloat)bottomMargin {
+    CGFloat margin = 0.0;
+    
+    if ([_style respondsToSelector:@selector(bottomButtonMarginForTabBarView:)]) {
+        margin = [_style closeButtonBottomMarginForTabBarView:[self tabBarView]];
+    } else {
+        margin = [self _bottomMargin];
+    }
+
+    return margin;
+}
+
+- (CGFloat)_bottomMargin {
+
+    return MARGIN_Y;
+}  // -_bottomMargin
+
 #pragma mark > Determining Cell Size
 
 - (NSRect)_drawingRectForBounds:(NSRect)theRect {
 
-    theRect.origin.x += [self _leftMargin];
-    theRect.size.width -= [self _leftMargin] + [self _rightMargin];
+    theRect.origin.x += [self leftMargin];
+    theRect.size.width -= [self leftMargin] + [self rightMargin];
     
-    theRect.origin.y += MARGIN_Y;
-    theRect.size.height -= 2*MARGIN_Y;
+    theRect.origin.y += [self topMargin];
+    theRect.size.height -= [self topMargin] + [self bottomMargin];
     
     return theRect;
 }
@@ -765,7 +823,7 @@
         
     NSSize stringSize = [attrString size];
     
-    NSRect result = NSMakeRect(constrainedDrawingRect.origin.x, drawingRect.origin.y+ceil((drawingRect.size.height-stringSize.height)/2), constrainedDrawingRect.size.width, stringSize.height);
+    NSRect result = NSMakeRect(constrainedDrawingRect.origin.x, drawingRect.origin.y+floor((drawingRect.size.height-stringSize.height)/2), constrainedDrawingRect.size.width, stringSize.height);
                     
     return NSIntegralRect(result);
 
@@ -904,7 +962,7 @@
     NSRect result;
     result.size = counterBadgeSize; // temp
     result.origin.x = NSMaxX(constrainedDrawingRect)-counterBadgeSize.width;
-    result.origin.y = ceil(constrainedDrawingRect.origin.y+(constrainedDrawingRect.size.height-result.size.height)/2);
+    result.origin.y = floor(constrainedDrawingRect.origin.y+(constrainedDrawingRect.size.height-result.size.height)/2);
                 
     return NSIntegralRect(result);
 }

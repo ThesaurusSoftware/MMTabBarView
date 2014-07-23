@@ -29,6 +29,11 @@
 - (CGFloat)rightMarginForTabBarView:(MMTabBarView *)tabBarView;
 - (CGFloat)topMarginForTabBarView:(MMTabBarView *)tabBarView;
 - (CGFloat)bottomMarginForTabBarView:(MMTabBarView *)tabBarView;
+- (CGFloat)closeButtonLeftMarginForTabBarView:(MMTabBarView *)tabBarView;
+- (CGFloat)closeButtonRightMarginForTabBarView:(MMTabBarView *)tabBarView;
+- (CGFloat)closeButtonTopMarginForTabBarView:(MMTabBarView *)tabBarView;
+- (CGFloat)closeButtonBottomMarginForTabBarView:(MMTabBarView *)tabBarView;
+- (CGFloat)cellPaddingForTabBarView:(MMTabBarView *)tabBarView;
 - (NSSize)addTabButtonSizeForTabBarView:(MMTabBarView *)tabBarView;
 - (NSRect)addTabButtonRectForTabBarView:(MMTabBarView *)tabBarView;
 - (NSSize)overflowButtonSizeForTabBarView:(MMTabBarView *)tabBarView;

@@ -16,3 +16,5 @@ profile
 
 # OSX
 .DS_Store
+build
+MMTabBarView/build

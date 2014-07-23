@@ -21,6 +21,8 @@
 #import "MMLiveChatTabStyle.h"
 #import "MMCardTabStyle.h"
 #import "MMSafariTabStyle.h"
+#import "MMMavericksTabStyle.h"
+#import "MMYosemiteTabStyle.h"
 #import "MMTabDragAssistant.h"
 #import "MMTabBarController.h"
 #import "MMAttachedTabBarButton.h"
@@ -44,6 +46,7 @@
 - (CGFloat)_leftMargin;
 - (CGFloat)_topMargin;
 - (CGFloat)_bottomMargin;
+- (CGFloat)_cellPadding;
 - (NSSize)_addTabButtonSize;
 - (NSRect)_addTabButtonRect;
 - (NSSize)_overflowButtonSize;
@@ -258,7 +261,7 @@ static NSMutableDictionary *registeredStyleClasses = nil;
     
         //Don't let attached buttons overlap the add tab button if it is visible
 	if ([self showAddTabButton]) {
-		result -= [self addTabButtonSize].width + 2*kMMTabBarCellPadding;
+		result -= [self addTabButtonSize].width + 2*[self cellPadding];
 	}
     
     return result;
@@ -351,6 +354,8 @@ static NSMutableDictionary *registeredStyleClasses = nil;
     [self registerTabStyleClass:[MMCardTabStyle class]];
     [self registerTabStyleClass:[MMLiveChatTabStyle class]];
     [self registerTabStyleClass:[MMSafariTabStyle class]];
+    [self registerTabStyleClass:[MMMavericksTabStyle class]];
+    [self registerTabStyleClass:[MMYosemiteTabStyle class]];
 }
 
 + (void)registerTabStyleClass:(Class <MMTabStyle>)aStyleClass {
@@ -429,6 +434,11 @@ static NSMutableDictionary *registeredStyleClasses = nil;
 
 - (void)removeTabViewItem:(NSTabViewItem *)anItem {
     [_tabView removeTabViewItem:anItem];
+
+    MMAttachedTabBarButton *button = [self attachedButtonForTabViewItem:anItem];
+    if (button){
+        [self removeAttachedButton:button synchronizeTabViewItems:YES];
+    }
 }
 
 - (NSTabViewItem *)tabViewItemPinnedToOverflowButton {
@@ -1194,39 +1204,39 @@ static NSMutableDictionary *registeredStyleClasses = nil;
 
 		if (_partnerView) {
                 // above or below me?
-			if ((myOriginalOrigin - kMMTabBarViewHeight) > partnerOriginalOrigin) {
+			if ((myOriginalOrigin - [self heightOfTabBarButtons]) > partnerOriginalOrigin) {
                     // partner is below me
 				if (_isHidden) {
                         // I'm shrinking
 					partnerTargetOrigin = partnerOriginalOrigin;
-					partnerTargetSize = partnerOriginalSize + kMMTabBarViewHeight;
+					partnerTargetSize = partnerOriginalSize + [self heightOfTabBarButtons];
 				} else {
                         // I'm growing
 					partnerTargetOrigin = partnerOriginalOrigin;
-					partnerTargetSize = partnerOriginalSize - kMMTabBarViewHeight;
+					partnerTargetSize = partnerOriginalSize - [self heightOfTabBarButtons];
 				}
 			} else {
                     // partner is above me
 				if (_isHidden) {
                         // I'm shrinking
-					partnerTargetOrigin = partnerOriginalOrigin - kMMTabBarViewHeight;
-					partnerTargetSize = partnerOriginalSize + kMMTabBarViewHeight;
+					partnerTargetOrigin = partnerOriginalOrigin - [self heightOfTabBarButtons];
+					partnerTargetSize = partnerOriginalSize + [self heightOfTabBarButtons];
 				} else {
                         // I'm growing
-					partnerTargetOrigin = partnerOriginalOrigin + kMMTabBarViewHeight;
-					partnerTargetSize = partnerOriginalSize - kMMTabBarViewHeight;
+					partnerTargetOrigin = partnerOriginalOrigin + [self heightOfTabBarButtons];
+					partnerTargetSize = partnerOriginalSize - [self heightOfTabBarButtons];
 				}
 			}
 		} else {
                 // for window movement
 			if (_isHidden) {
                     // I'm shrinking
-				partnerTargetOrigin = partnerOriginalOrigin + kMMTabBarViewHeight;
-				partnerTargetSize = partnerOriginalSize - kMMTabBarViewHeight;
+				partnerTargetOrigin = partnerOriginalOrigin + [self heightOfTabBarButtons];
+				partnerTargetSize = partnerOriginalSize - [self heightOfTabBarButtons];
 			} else {
                     // I'm growing
-				partnerTargetOrigin = partnerOriginalOrigin - kMMTabBarViewHeight;
-				partnerTargetSize = partnerOriginalSize + kMMTabBarViewHeight;
+				partnerTargetOrigin = partnerOriginalOrigin - [self heightOfTabBarButtons];
+				partnerTargetSize = partnerOriginalSize + [self heightOfTabBarButtons];
 			}
 		}
 	} else {   // vertical 
@@ -1460,6 +1470,18 @@ static NSMutableDictionary *registeredStyleClasses = nil;
     }
 
     return margin;
+}
+
+- (CGFloat)cellPadding {
+    CGFloat padding = 0.0;
+    
+    if ([_style respondsToSelector:@selector(cellPaddingForTabBarView:)]) {
+        padding = [_style cellPaddingForTabBarView:self];
+    } else {
+        padding = [self _cellPadding];
+    }
+
+    return padding;
 }
 
 #pragma mark -
@@ -2320,6 +2342,11 @@ static NSMutableDictionary *registeredStyleClasses = nil;
         return MARGIN_Y;
 }
 
+- (CGFloat)_cellPadding
+{
+    return kMMTabBarCellPadding;
+}
+
 - (NSSize)_addTabButtonSize {
 
     if ([self orientation] == MMTabBarHorizontalOrientation)
@@ -2336,19 +2363,19 @@ static NSMutableDictionary *registeredStyleClasses = nil;
     NSRect theRect;
     NSSize buttonSize = [self addTabButtonSize];
     NSSize overflowButtonSize = [self overflowButtonSize];
-    
+
     if ([self orientation] == MMTabBarHorizontalOrientation) {
-        CGFloat xOffset = kMMTabBarCellPadding;
+        CGFloat xOffset = [self cellPadding];
         MMAttachedTabBarButton *lastAttachedButton = [self lastAttachedButton];
         if (lastAttachedButton) {
             xOffset += NSMaxX([lastAttachedButton stackingFrame]);
             
             if ([lastAttachedButton isOverflowButton]) {
-                xOffset += kMMTabBarCellPadding;
+                xOffset += [self cellPadding];
                 xOffset += overflowButtonSize.width;
             }
         }
-                
+
         theRect = NSMakeRect(xOffset, NSMinY([self bounds]), buttonSize.width, buttonSize.height);
     } else {
         CGFloat yOffset = 0;
@@ -2379,7 +2406,7 @@ static NSMutableDictionary *registeredStyleClasses = nil;
     NSSize buttonSize = [self overflowButtonSize];
     
     if ([self orientation] == MMTabBarHorizontalOrientation) {
-        CGFloat xOffset = 0.0f; //kMMTabBarCellPadding;
+        CGFloat xOffset = 0.0f; //[self cellPadding];
         MMAttachedTabBarButton *lastAttachedButton = [self lastAttachedButton];
         if (lastAttachedButton)
             xOffset += NSMaxX([lastAttachedButton stackingFrame]);
@@ -2496,9 +2523,9 @@ static NSMutableDictionary *registeredStyleClasses = nil;
 
 	if (window) {
 		NSRect resizeWidgetFrame = [[window contentView] frame];
-		resizeWidgetFrame.origin.x += resizeWidgetFrame.size.width - 22;
-		resizeWidgetFrame.size.width = 22;
-		resizeWidgetFrame.size.height = 22;
+		resizeWidgetFrame.origin.x += resizeWidgetFrame.size.width - [self heightOfTabBarButtons];
+		resizeWidgetFrame.size.width = [self heightOfTabBarButtons];
+		resizeWidgetFrame.size.height = [self heightOfTabBarButtons];
 
 		if ([window showsResizeIndicator] && NSIntersectsRect([self frame], resizeWidgetFrame)) {
                 //the resize widgets are larger on metal windows

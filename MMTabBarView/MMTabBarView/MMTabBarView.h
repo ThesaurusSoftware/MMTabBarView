@@ -340,7 +340,7 @@ typedef enum MMAttachedButtonsEnumerationOptions : NSUInteger {
 
 @optional
 
-    // Standard NSTabView delegate methods
+    // Additional NSTabView delegate methods
 - (BOOL)tabView:(NSTabView *)aTabView shouldCloseTabViewItem:(NSTabViewItem *)tabViewItem;
 - (void)tabView:(NSTabView *)aTabView willCloseTabViewItem:(NSTabViewItem *)tabViewItem;
 - (void)tabView:(NSTabView *)aTabView didCloseTabViewItem:(NSTabViewItem *)tabViewItem;

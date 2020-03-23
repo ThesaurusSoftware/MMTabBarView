@@ -211,10 +211,6 @@ static NSMutableDictionary *registeredStyleClasses = nil;
 }
 
 -(void)viewDidEndLiveResize {
-    for (MMAttachedTabBarButton *aButton in [self attachedButtons]) {
-		[[aButton indicator] startAnimation:self];
-	}
-
 	[self _checkWindowFrame];
 	[self update:NO];
 }

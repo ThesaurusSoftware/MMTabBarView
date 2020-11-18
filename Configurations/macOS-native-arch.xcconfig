@@ -1,0 +1,13 @@
+//
+//  macOS-native-arch.xcconfig
+//  MMTabBarView
+//
+//  Created by Jonathan Mitchell on 18/11/2020.
+//  Copyright © 2020 Michael Monscheuer. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+#include "MMTabBarViewFramework-Release.xcconfig"
+ARCHS=$(NATIVE_ARCH_ACTUAL)
+

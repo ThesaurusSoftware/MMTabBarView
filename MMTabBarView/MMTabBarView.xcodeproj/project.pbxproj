@@ -414,6 +414,7 @@
 		3408A158197FFAA100AC5C43 /* MavericksIWAddTabButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MavericksIWAddTabButton@2x.png"; sourceTree = "<group>"; };
 		3408A159197FFAA100AC5C43 /* MMMavericksTabStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMMavericksTabStyle.h; sourceTree = "<group>"; };
 		3408A15A197FFAA100AC5C43 /* MMMavericksTabStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMMavericksTabStyle.m; sourceTree = "<group>"; };
+		AB7CDC8C256564EE00186B40 /* macOS-native-arch.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = "macOS-native-arch.xcconfig"; path = "../Configurations/macOS-native-arch.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -599,6 +600,7 @@
 		0634F0C4160A1F7100A6C86A /* Configurations */ = {
 			isa = PBXGroup;
 			children = (
+				AB7CDC8C256564EE00186B40 /* macOS-native-arch.xcconfig */,
 				0634F0C5160A1F8100A6C86A /* Base.xcconfig */,
 				0634F0C6160A1F8100A6C86A /* Debug.xcconfig */,
 				0634F0C7160A1F8100A6C86A /* MMTabBarViewFramework-Base.xcconfig */,
@@ -892,6 +894,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 06DB239A1609F5820071BDA0;
@@ -1202,7 +1205,6 @@
 		};
 		06DB23BD1609F5830071BDA0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0634F0C9160A1F8100A6C86A /* MMTabBarViewFramework-Release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				COMBINE_HIDPI_IMAGES = YES;

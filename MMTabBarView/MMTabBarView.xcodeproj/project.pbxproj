@@ -1147,6 +1147,7 @@
 		};
 		06DB23BA1609F5830071BDA0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0634F0C9160A1F8100A6C86A /* MMTabBarViewFramework-Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
